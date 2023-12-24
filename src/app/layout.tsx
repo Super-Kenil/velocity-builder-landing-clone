@@ -5,8 +5,12 @@ import './globals.css'
 const poppins = Poppins({ subsets: ['latin'], weight: '700' })
 
 export const metadata: Metadata = {
-  title: 'CBuilder.io Velocity',
+  title: 'Builder.io Velocity',
   description: 'AI Launch Event',
+  authors: {
+    name: 'Clone made by @Super-Kenil',
+    url: 'https://super-kenil.github.io/superkenil'
+  }
 }
 
 export default function RootLayout({
@@ -16,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} bg-[#111]`}>{children}</body>
+      <body className={`${poppins.className} bg-[#111] text-white`}>{children}</body>
     </html>
   )
 }
