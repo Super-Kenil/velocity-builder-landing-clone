@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
+
 import './globals.css'
 
 const poppins = Poppins({ subsets: ['latin'], weight: '700' })
@@ -9,14 +11,14 @@ export const metadata: Metadata = {
   description: 'AI Launch Event',
   authors: {
     name: 'Clone made by @Super-Kenil',
-    url: 'https://super-kenil.github.io/superkenil'
-  }
+    url: 'https://superkenil.com',
+  },
 }
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <html lang="en">

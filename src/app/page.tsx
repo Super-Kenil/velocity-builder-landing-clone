@@ -1,17 +1,20 @@
 "use client"
-import { assets } from '@/utils/asset-utils'
 import Image from 'next/image'
-import { type Framework, frameworks } from '@/utils/framework-utils'
 import { useState, useEffect } from 'react'
-import { cn } from '@/utils/cn'
+
 import FrameworkRotation from '@/components/FrameworkRotation'
 import { getFrameworkColor } from '@/helpers/colors'
 import EventCountdown from '@/components/EventCountdown'
 
-export default function Home() {
+import { assets } from '@/utils/asset-utils'
+import { type Framework, frameworks } from '@/utils/framework-utils'
+import { cn } from '@/utils/cn'
+
+export default function Home () {
 
   const [currentFramework, setCurrentFramework] = useState<Framework>(frameworks[0])
   const [showBackground, setShowBackground] = useState(false)
+  const [body, setBody] = useState<HTMLBodyElement>()
 
   useEffect(() => {
     let currentIndex = 0
@@ -26,15 +29,24 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    if (!body) setBody(document.getElementsByTagName('body')[0])
+    if (body) {
+      const classNames = body.classList.value.split(' ')
+      classNames.forEach((item) => {
+        if (item.startsWith('scrollBar_')) body.classList.remove(item)
+        body.classList.add('scrollBar_' + getFrameworkColor('bg', currentFramework).split('-')[1])
+      })
+    }
+  }, [currentFramework, body])
+
+  useEffect(() => {
     setShowBackground(true)
   }, [])
 
-
-
   return (
-    <main>
-      <div className={cn('fixed inset-0 transition-colors delay-100 duration-700 opacity-25', getFrameworkColor('bg', currentFramework))}
-      />
+    <main className={`selection:${getFrameworkColor('bg', currentFramework)}`}>
+
+      <div className={cn('fixed inset-0 transition-colors delay-100 duration-700 opacity-25', getFrameworkColor('bg', currentFramework))} />
       <Image src={assets.gradient} height={1200} width={1200} role='presentation' alt='gradiet background' className='fixed inset-0 w-screen h-screen object-cover' />
       <div className="fixed inset-0 opacity-30"
         style={{
